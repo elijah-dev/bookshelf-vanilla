@@ -1,4 +1,5 @@
-// Список книг изображаемых изначально.
+// Список книг изображаемых изначально
+// Имитация данных, полученных от сервера или API
 const initialBookList = [
   {
     bookTitle: 'C# in Depth',
@@ -56,7 +57,7 @@ const cancelButton = D.getElementById('cancel-btn').addEventListener(
 
 // Функция создания элемента
 const makeListItem = data => {
-  // Копирование образца со всеми детьми и тестом
+  // Копирование образца со всеми детьми и текстом
   const newListItem = listItemBluePrint.cloneNode(true);
 
   // Присвоение уникального id. Имитация id полученного из БД.
@@ -75,8 +76,8 @@ const makeListItem = data => {
   bookCover.src = data.bookCover;
   bookCover.addEventListener('error', e => (e.target.src = 'img/book.png'));
 
-  // Присвоение хендлеров для кнопщк редактирования и удаления
-  // Функции используют id, сгенерированных ранее
+  // Присвоение хендлеров для кнопки редактирования и удаления
+  // Функции используют id, сгенерированное ранее
   newListItem
     .querySelector('.edit-btn')
     .addEventListener('click', () => openFormEdit(id));
@@ -89,9 +90,11 @@ const makeListItem = data => {
 
 // Функции открытия/закрытия формы
 
-// Открытие пустой формы для добаления нового элемента
+// Открытие пустой формы для добавления нового элемента
 const openFormAdd = () => {
+  // Меняем заголовок формы
   formTitle.innerText = 'Добавить книгу';
+  // Вешаем соответсвующий ивент-листенер на форму
   bookInfoForm.addEventListener(
     'submit',
     (handleSubmit = e => {
@@ -99,20 +102,25 @@ const openFormAdd = () => {
       addListItem();
     })
   );
+  // Открывем форму путем свитча классов
   formContainer.classList.add('open');
   formContainer.classList.remove('closed');
 };
 
 // Открытие формы для редактирования с полями
 const openFormEdit = id => {
+  // Меняем заголовок формы
   formTitle.innerText = 'Редактировать книгу';
+  // Находим элемент по id
   const itemToEdit = D.getElementById(id);
+  // Устанавливаем содержание полей формы на значения, полученные из найденного эелемента
   bookTitleField.value = itemToEdit.querySelector('.book-title').innerText;
   bookAuthorField.value = itemToEdit.querySelector('.book-author').innerText;
   bookReleaseYearField.value = itemToEdit.querySelector(
     '.book-release-year'
   ).innerText;
   bookCoverField.value = itemToEdit.querySelector('.book-cover').src;
+  // Вешаем соответсвующий ивент-листенер на форму
   bookInfoForm.addEventListener(
     'submit',
     (handleSubmit = e => {
@@ -120,6 +128,7 @@ const openFormEdit = id => {
       updateListItem(id);
     })
   );
+  // Открывем форму
   formContainer.classList.add('open');
   formContainer.classList.remove('closed');
 };
@@ -136,31 +145,40 @@ const closeForm = () => {
 
 // Добавление
 const addListItem = () => {
+  // Создаем объект из содержания полей формы
   const newItemData = {
     bookTitle: bookTitleField.value,
     bookAuthor: bookAuthorField.value,
     bookReleaseYear: bookReleaseYearField.value,
     bookCover: bookCoverField.value
   };
+  // Создаем новый элемент списка из объекта
   const newListItem = makeListItem(newItemData);
+  // Добавляем элемент в конец списка
   bookList.appendChild(newListItem);
+  // Закрываем форму
   closeForm();
 };
 
 // Апдейт
 const updateListItem = id => {
+  // Находим элемент по id
   const itemToUpdate = D.getElementById(id);
+  // Обновляем значения полей на содержание формы
   itemToUpdate.querySelector('.book-title').innerText = bookTitleField.value;
   itemToUpdate.querySelector('.book-author').innerText = bookAuthorField.value;
   itemToUpdate.querySelector('.book-release-year').innerText =
     bookReleaseYearField.value;
   itemToUpdate.querySelector('.book-cover').src = bookCoverField.value;
+  // Закрываем форму
   closeForm();
 };
 
 // Удаление
 const deleteListItem = id => {
+  // Находим по id
   itemToDelete = D.getElementById(id);
+  // Удаляем. В полноценном приложении здесь был бы запрос к API на удаление из БД
   bookList.removeChild(itemToDelete);
 };
 
