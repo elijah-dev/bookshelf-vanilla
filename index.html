@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>Книжная полка</title>
+  </head>
+  <body>
+    <!-- Шапка -->
+    <div id="nav-bar">
+      <h1>Книжная полка</h1>
+      <button class="btn" id="add-item-btn">Добавить книгу</button>
+    </div>
+    <!-- Всплывающее окно с формой. По умолчанию скрыто за пределами экрана -->
+    <div id="popup-container">
+      <div id="popup-form">
+        <!-- Форма для редактирования и добавления книг -->
+        <form id="book-info-form">
+          <h2 id="form-title">Новая книга</h2>
+          <div class="form-field-container">
+            <label for="book-title-field">Название</label>
+            <input
+              type="text"
+              id="book-title-field"
+              class="form-field"
+              required
+            />
+          </div>
+          <div class="form-field-container">
+            <label for="book-author-field">Автор</label>
+            <input
+              type="text"
+              id="book-author-field"
+              class="form-field"
+              required
+            />
+          </div>
+          <div class="form-field-container">
+            <label for="book-release-year-field">Год издания</label>
+            <input
+              type="number"
+              min="1"
+              max="2017"
+              id="book-release-year-field"
+              class="form-field"
+              required
+            />
+          </div>
+          <div class="form-field-container">
+            <label for="book-cover-field">Изображение</label>
+            <input type="text" id="book-cover-field" class="form-field" />
+          </div>
+          <div id="form-btn-container">
+            <input type="button" class="btn" id="cancel-btn" value="Отменить" />
+            <input type="submit" class="btn" id="save-btn" value="Сохранить" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Основной контент. Список книг -->
+    <div id="list-container">
+      <ul id="book-list">
+        <!-- "Черновик" элемента списка.
+          Я решил, что проще написать его на html
+          и потом копировать через cloneNode, чем создавать с нуля в JS.
+          По-умолчанию скрыт. -->
+        <li class="list-item" id="list-item-blueprint">
+          <div class="image-container">
+            <img class="book-cover" src="" alt="" />
+          </div>
+          <div class="book-info">
+            <h2>
+              <span class="book-title"></span>
+              <span class="book-release-year"></span>
+            </h2>
+            <p>
+              <span class="book-author"></span>
+            </p>
+          </div>
+          <div class="button-container">
+            <button class="btn edit-btn">Редактировать</button>
+            <button class="btn delete-btn">Удалить</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

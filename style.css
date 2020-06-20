@@ -1,0 +1,368 @@
+/* Общее*/
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Кнопки. Общий стиль */
+.btn {
+  border: none;
+  margin: 5px 0;
+  padding: 4px 8px;
+  min-width: 132px;
+  max-height: 30px;
+  font-size: 100%;
+  color: white;
+  background-color: rgb(25, 82, 129);
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn:active {
+  outline: none;
+  border: none;
+  transform: scale(0.98);
+  background-color: rgb(25, 82, 129);
+}
+
+.btn:focus {
+  outline: none;
+  border: none;
+}
+
+/* Шапка */
+#nav-bar {
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(25, 82, 129);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.459);
+}
+
+#nav-bar h1 {
+  margin: 0;
+  color: rgb(255, 255, 255);
+}
+
+#add-item-btn {
+  border: 1px solid white;
+}
+
+/* Список книг */
+/* Контейнеры списка */
+#list-container {
+  width: 700px;
+  margin: 90px auto;
+  padding: 0;
+}
+
+#book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#list-item-blueprint {
+  display: none;
+}
+
+/* Элемент списка */
+/* Общее */
+.list-item {
+  height: 180px;
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  border: 1px solid rgba(0, 0, 0, 0.205);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.205);
+  margin-bottom: 10px;
+  padding: 0 20px;
+}
+/* Секция изображения */
+.image-container {
+  padding-top: 20px;
+}
+
+.book-cover {
+  display: block;
+  width: 120px;
+  height: 150px;
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.432);
+  margin: 0;
+}
+/* Секция с информацией */
+.book-info {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.book-info p {
+  font-size: 1.5rem;
+}
+
+.book-release-year {
+  color: rgb(160, 160, 160);
+}
+/* Секция с кнопками */
+.button-container {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Всплывающее окно с формой */
+/* Контейнер формы */
+#popup-container {
+  position: fixed;
+  left: 0;
+  top: -100vh;
+  height: 100vh;
+  width: 100%;
+  z-index: 5;
+  display: flex;
+}
+/* Класс для активации формы. Добавляет анимацию открытию */
+.open {
+  -webkit-animation: slidein 300ms linear forwards;
+  animation: slidein 300ms linear forwards;
+}
+/* Анимация открытия */
+@-webkit-keyframes slidein {
+  0% {
+    opacity: 0;
+    top: -100vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  35% {
+    opacity: 0;
+    top: -10vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  90% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes slidein {
+  0% {
+    opacity: 0;
+    top: -100vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  35% {
+    opacity: 0;
+    top: -10vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  90% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+/* Класс для деактивации формы. Добавляет анимацию закрытия */
+.closed {
+  -webkit-animation: slideout 300ms linear forwards;
+  animation: slideout 300ms linear forwards;
+}
+/* Анимация закрытия */
+@-webkit-keyframes slideout {
+  0% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  35% {
+    opacity: 0;
+    top: -10vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    top: -100vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes slideout {
+  0% {
+    opacity: 1;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  35% {
+    opacity: 0;
+    top: -10vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    top: -100vh;
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* Само всплывающее окно с формой*/
+/* Контейнер */
+#popup-form {
+  margin: auto;
+  background-color: white;
+  width: 600px;
+}
+
+#form-title {
+  margin: 0;
+}
+/* Форма */
+#book-info-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+/* Поля формы */
+/* Контейнеры */
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+}
+/* Лэйбл */
+.form-field-container label {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: rgb(51, 51, 51);
+}
+/* Поле */
+.form-field {
+  font-size: 18px;
+  border: none;
+  border-bottom: 1px solid rgb(160, 160, 160);
+  transition-duration: 300ms;
+}
+
+.form-field:hover {
+  transform: scale(1.01);
+  border-bottom: 1px solid rgb(25, 82, 129);
+  transition-duration: 300ms;
+}
+
+.form-field:focus {
+  transform: scale(1.01);
+  border-bottom: 1px solid rgb(25, 82, 129);
+  outline: none;
+}
+/* Кнопки формы */
+#form-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* media queries */
+@media screen and (max-width: 700px) {
+  #list-container {
+    width: 100%;
+    padding: 0;
+    margin-top: 80px;
+  }
+
+  .list-item {
+    box-shadow: none;
+    margin-bottom: -1px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #popup-form {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .list-item {
+    height: auto;
+    display: grid;
+    grid-template-rows: auto 50px;
+    grid-template-columns: 120px auto;
+  }
+
+  .image-container {
+    padding: 10px;
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .book-cover {
+    width: 100px;
+    height: 120px;
+  }
+
+  .book-info {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .button-container {
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    grid-row: 2;
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  #nav-bar h1 {
+    font-size: 24px;
+  }
+
+  #popup-form {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #nav-bar h1 {
+    font-size: 18px;
+  }
+
+  .book-title,
+  .book-release-year,
+  .book-author {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  #popup-form {
+    margin: 0;
+  }
+}
