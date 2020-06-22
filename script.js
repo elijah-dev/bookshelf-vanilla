@@ -2,6 +2,7 @@
 // Имитация данных, полученных от сервера или API
 const initialBookList = [
   {
+    id: '35457986',
     bookTitle: 'C# in Depth',
     bookAuthor: 'Jon Skeet',
     bookReleaseYear: '2013',
@@ -9,6 +10,7 @@ const initialBookList = [
       'https://images-na.ssl-images-amazon.com/images/I/41prHleW6NL._SX397_BO1,204,203,200_.jpg'
   },
   {
+    id: '76682037',
     bookTitle: 'Effective Java',
     bookAuthor: 'Joshua Bloch',
     bookReleaseYear: '2008',
@@ -16,6 +18,7 @@ const initialBookList = [
       'https://images-na.ssl-images-amazon.com/images/I/512uU-1z0qL._SX396_BO1,204,203,200_.jpg'
   },
   {
+    id: '49503351',
     bookTitle: 'JavaScript: The Good Parts',
     bookAuthor: 'Jon Skeet',
     bookReleaseYear: '2008',
@@ -60,10 +63,7 @@ const makeListItem = data => {
   // Копирование образца со всеми детьми и текстом
   const newListItem = listItemBluePrint.cloneNode(true);
 
-  // Присвоение уникального id. Имитация id полученного из БД.
-  // Необходимо для последующего нахождения элемента в списке.
-  const id = Math.round(Math.random() * 100000);
-  newListItem.id = id;
+  newListItem.id = data.id;
 
   // Текстовый контент
   newListItem.querySelector('.book-title').innerText = data.bookTitle;
@@ -74,16 +74,16 @@ const makeListItem = data => {
   // URL для обложки. Добавление хэндлера, заменяющего недействительный URL на локально хранимый плэйсхолдер
   const bookCover = newListItem.querySelector('.book-cover');
   bookCover.src = data.bookCover;
-  bookCover.addEventListener('error', e => (e.target.src = 'img/book.png'));
+  bookCover.addEventListener('error', e => (e.target.src = 'img/placeholder.png'));
 
   // Присвоение хендлеров для кнопки редактирования и удаления
   // Функции используют id, сгенерированное ранее
   newListItem
     .querySelector('.edit-btn')
-    .addEventListener('click', () => openFormEdit(id));
+    .addEventListener('click', () => openFormEdit(data.id));
   newListItem
     .querySelector('.delete-btn')
-    .addEventListener('click', () => deleteListItem(id));
+    .addEventListener('click', () => deleteListItem(data.id));
 
   return newListItem;
 };
@@ -107,7 +107,7 @@ const openFormAdd = () => {
   formContainer.classList.remove('closed');
 };
 
-// Открытие формы для редактирования с полями
+// Открытие формы для редактирования
 const openFormEdit = id => {
   // Меняем заголовок формы
   formTitle.innerText = 'Редактировать книгу';
@@ -145,8 +145,13 @@ const closeForm = () => {
 
 // Добавление
 const addListItem = () => {
+  // Генерация уникального id
+  const id =
+    Math.round(Math.random() * 10000).toString() +
+    Math.round(Math.random() * 10000).toString();
   // Создаем объект из содержания полей формы
   const newItemData = {
+    id: id,
     bookTitle: bookTitleField.value,
     bookAuthor: bookAuthorField.value,
     bookReleaseYear: bookReleaseYearField.value,
